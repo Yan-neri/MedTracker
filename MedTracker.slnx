@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MedTracker.CLI/MedTracker.CLI.csproj" />
+  <Project Path="MedTracker.Tests/MedTracker.Tests.csproj" />
+</Solution>
