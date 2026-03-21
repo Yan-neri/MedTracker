@@ -57,7 +57,7 @@ while (running)
             Console.WriteLine("\n--- Todos os Medicamentos ---");
             var meds = manager.GetAll();
             if (!meds.Any()) Console.WriteLine("Nenhum medicamento cadastrado no momento.");
-            
+
             foreach (var med in meds)
             {
                 Console.WriteLine($"- {med.Name} ({med.Dosage}) | Validade: {med.ExpiryDate:dd/MM/yyyy}");
@@ -67,7 +67,7 @@ while (running)
         case "3":
             Console.WriteLine("\n--- Alertas de Vencimento ---");
             var expiring = manager.GetExpiredOrCloseToExpiry(DateTime.Now);
-            
+
             if (!expiring.Any())
             {
                 Console.ForegroundColor = ConsoleColor.Green;

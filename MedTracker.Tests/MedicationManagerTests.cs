@@ -31,9 +31,9 @@ public class MedicationManagerTests
         var expiryDate = new DateTime(2026, 12, 31);
 
         // Ação e Verificação
-        var exception = Assert.Throws<ArgumentException>(() => 
+        var exception = Assert.Throws<ArgumentException>(() =>
             manager.AddMedication("", "500mg", expiryDate, today));
-            
+
         Assert.Equal("O nome do medicamento não pode ser vazio.", exception.Message);
     }
 
@@ -46,7 +46,7 @@ public class MedicationManagerTests
         var pastDate = new DateTime(2025, 1, 1); // Uma data no passado
 
         // Ação e Verificação
-        var exception = Assert.Throws<ArgumentException>(() => 
+        var exception = Assert.Throws<ArgumentException>(() =>
             manager.AddMedication("Aspirina", "100mg", pastDate, today));
 
         Assert.Equal("Não é permitido cadastrar medicamentos já vencidos.", exception.Message);
