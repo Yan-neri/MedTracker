@@ -1,0 +1,39 @@
+name: CI MedTracker
+
+# Define quando o robô vai rodar: sempre que enviar código para a main
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # O robô vai usar um Linux
+
+    steps:
+    # 1. Baixa o seu código para o servidor
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    # 2. Prepara o .NET 10 (a mesma versão que configuramos na sua máquina)
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+
+    # 3. Baixa as dependências
+    - name: Restaurar dependências
+      run: dotnet restore
+
+    # 4. REQUISITO DO PROFESSOR: Checa o estilo do código (Linting)
+    - name: Verificar Linting (Formatação)
+      run: dotnet format --verify-no-changes
+
+    # 5. Compila o projeto
+    - name: Build do projeto
+      run: dotnet build --no-restore
+
+    # 6. REQUISITO DO PROFESSOR: Roda os testes
+    - name: Executar Testes
+      run: dotnet test --no-build --verbosity normal
