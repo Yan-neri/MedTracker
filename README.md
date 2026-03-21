@@ -1,7 +1,7 @@
 # 💊 MedTracker CLI
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/SEU_USUARIO_DO_GITHUB/MedTracker/ci.yml?branch=main)
+![Build Status](https://github.com/Yan-neri/MedTracker/actions/workflows/ci.yml/badge.svg)
 
 > Uma aplicação simples de linha de comando (CLI) para auxiliar no controle e validade de medicamentos, garantindo mais segurança para pacientes e cuidadores.
 
