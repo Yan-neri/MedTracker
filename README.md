@@ -33,9 +33,10 @@ Cuidadores familiares, profissionais de saúde domiciliar e pacientes que necess
 
 # 7. Instruções de instalação
 1. Instale o .NET SDK 10.0 no seu computador.
-2. Abra o terminal e rode o comando: `git clone https://github.com/Yan-neri/MedTracker.git`
-3. Acesse a pasta do projeto com o comando: `cd MedTracker`
-4. Restaure as dependências rodando: `dotnet restore`
+2. Instale o Git para conseguir baixar o repositório via terminal.
+3. Abra o terminal e rode o comando: `git clone https://github.com/Yan-neri/MedTracker.git`
+4. Acesse a pasta do projeto com o comando: `cd MedTracker`
+5. Restaure as dependências rodando: `dotnet restore`
 
 # 8. Instruções de execução
 Com o terminal aberto na pasta raiz do projeto, digite o seguinte comando e aperte Enter:
