@@ -13,7 +13,7 @@ public class ViaCepService
         {
             // Limpa o CEP caso o usuário digite com traço
             cep = cep.Replace("-", "").Trim();
-            
+
             if (cep.Length != 8) return "CEP inválido.";
 
             var url = $"https://viacep.com.br/ws/{cep}/json/";

@@ -23,33 +23,33 @@ public class MedicationManagerTests
     }
 
     // Teste 2 (Entrada Inválida): Tentar cadastrar sem nome
- [Fact]
-public void AddMedication_EmptyName_ShouldThrowException()
-{
-    // Arrange
-    var manager = new MedicationManager();
+    [Fact]
+    public void AddMedication_EmptyName_ShouldThrowException()
+    {
+        // Arrange
+        var manager = new MedicationManager();
 
-    // Act
-    var ex = Assert.Throws<ArgumentException>(() => 
-        manager.AddMedication("", "500mg", DateTime.Now.AddDays(10), DateTime.Now)
-    );
+        // Act
+        var ex = Assert.Throws<ArgumentException>(() =>
+            manager.AddMedication("", "500mg", DateTime.Now.AddDays(10), DateTime.Now)
+        );
 
-    // Assert (Atenção ao ex.Message com 'M' maiúsculo)
-    Assert.Equal("O nome do medicamento não pode estar vazio.", ex.Message);
-}
+        // Assert (Atenção ao ex.Message com 'M' maiúsculo)
+        Assert.Equal("O nome do medicamento não pode estar vazio.", ex.Message);
+    }
 
-[Fact]
-public void AddMedication_ExpiredDate_ShouldThrowException()
-{
-    // Arrange
-    var manager = new MedicationManager();
+    [Fact]
+    public void AddMedication_ExpiredDate_ShouldThrowException()
+    {
+        // Arrange
+        var manager = new MedicationManager();
 
-    // Act
-    var ex = Assert.Throws<ArgumentException>(() => 
-        manager.AddMedication("Aspirina", "500mg", DateTime.Now.AddDays(-5), DateTime.Now)
-    );
+        // Act
+        var ex = Assert.Throws<ArgumentException>(() =>
+            manager.AddMedication("Aspirina", "500mg", DateTime.Now.AddDays(-5), DateTime.Now)
+        );
 
-    // Assert
-    Assert.Equal("A data de validade não pode ser anterior à data atual.", ex.Message);
-}
+        // Assert
+        Assert.Equal("A data de validade não pode ser anterior à data atual.", ex.Message);
+    }
 }

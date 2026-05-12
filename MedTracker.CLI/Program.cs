@@ -2,7 +2,7 @@
 
 // 1. Instanciamos o serviço de CEP aqui no topo
 var manager = new MedicationManager();
-var viaCepService = new ViaCepService(); 
+var viaCepService = new ViaCepService();
 bool running = true;
 
 Console.WriteLine("=====================================");
