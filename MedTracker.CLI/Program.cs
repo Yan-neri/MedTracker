@@ -1,6 +1,8 @@
 ﻿using MedTracker.CLI;
 
+// 1. Instanciamos o serviço de CEP aqui no topo
 var manager = new MedicationManager();
+var viaCepService = new ViaCepService(); 
 bool running = true;
 
 Console.WriteLine("=====================================");
@@ -29,16 +31,33 @@ while (running)
             string dosage = Console.ReadLine() ?? "";
 
             Console.Write("Data de Validade (DD/MM/AAAA): ");
-            if (DateTime.TryParse(Console.ReadLine(), out DateTime expiryDate))
+            string dataInput = Console.ReadLine() ?? "";
+
+            // --- NOVA PARTE DO CEP COMEÇA AQUI ---
+            Console.Write("CEP da farmácia (apenas números) ou Enter para pular: ");
+            string cep = Console.ReadLine() ?? "";
+            string endereco = "Não informado";
+
+            if (!string.IsNullOrWhiteSpace(cep))
+            {
+                Console.WriteLine("🔍 Consultando endereço...");
+                // Usamos 'await' para esperar a resposta da API
+                endereco = await viaCepService.BuscarEnderecoPorCep(cep);
+                Console.WriteLine($"📍 Endereço: {endereco}");
+            }
+            // --- NOVA PARTE DO CEP TERMINA AQUI ---
+
+            if (DateTime.TryParse(dataInput, out DateTime expiryDate))
             {
                 try
                 {
-                    manager.AddMedication(name, dosage, expiryDate, DateTime.Now);
+                    // Agora passamos o 'endereco' para o método de adicionar
+                    manager.AddMedication(name, dosage, expiryDate, DateTime.Now, endereco);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("✅ Medicamento cadastrado com sucesso!");
                     Console.ResetColor();
                 }
-                catch (ArgumentException ex) // Captura os erros que criamos lá na regra de negócio
+                catch (ArgumentException ex)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"❌ Erro: {ex.Message}");
@@ -60,7 +79,9 @@ while (running)
 
             foreach (var med in meds)
             {
-                Console.WriteLine($"- {med.Name} ({med.Dosage}) | Validade: {med.ExpiryDate:dd/MM/yyyy}");
+                // Adicionamos a exibição do endereço na listagem
+                Console.WriteLine($"- {med.Name} ({med.Dosage})");
+                Console.WriteLine($"  Validade: {med.ExpiryDate:dd/MM/yyyy} | Farmácia: {med.EnderecoFarmacia}");
             }
             break;
 

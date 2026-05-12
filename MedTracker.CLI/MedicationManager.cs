@@ -5,23 +5,19 @@ public class MedicationManager
     private readonly List<Medication> _medications = new();
 
     // Adiciona o remédio, mas aplica a dor real que estamos resolvendo!
-    public void AddMedication(string name, string dosage, DateTime expiryDate, DateTime currentDate)
-    {
-        // Regra 1: Não pode ter nome vazio
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException("O nome do medicamento não pode ser vazio.");
-        }
+public void AddMedication(string name, string dosage, DateTime expiryDate, DateTime currentDate, string endereco = "Não informado")
+{
+    if (string.IsNullOrWhiteSpace(name))
+        throw new ArgumentException("O nome do medicamento não pode estar vazio.");
 
-        // Regra 2: Não pode cadastrar remédio que já venceu no passado
-        if (expiryDate.Date < currentDate.Date)
-        {
-            throw new ArgumentException("Não é permitido cadastrar medicamentos já vencidos.");
-        }
+    if (expiryDate.Date < currentDate.Date)
+        throw new ArgumentException("A data de validade não pode ser anterior à data atual.");
 
-        var medication = new Medication(name, dosage, expiryDate);
-        _medications.Add(medication);
-    }
+    // Agora passamos o 'endereco' para o construtor do Medication
+    var medication = new Medication(name, dosage, expiryDate, endereco);
+    
+    _medications.Add(medication);
+}
 
     // Devolve a lista de todos os remédios
     public IReadOnlyList<Medication> GetAll()

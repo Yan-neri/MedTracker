@@ -23,32 +23,33 @@ public class MedicationManagerTests
     }
 
     // Teste 2 (Entrada Inválida): Tentar cadastrar sem nome
-    [Fact]
-    public void AddMedication_EmptyName_ShouldThrowException()
-    {
-        var manager = new MedicationManager();
-        var today = new DateTime(2026, 3, 21);
-        var expiryDate = new DateTime(2026, 12, 31);
+ [Fact]
+public void AddMedication_EmptyName_ShouldThrowException()
+{
+    // Arrange
+    var manager = new MedicationManager();
 
-        // Ação e Verificação
-        var exception = Assert.Throws<ArgumentException>(() =>
-            manager.AddMedication("", "500mg", expiryDate, today));
+    // Act
+    var ex = Assert.Throws<ArgumentException>(() => 
+        manager.AddMedication("", "500mg", DateTime.Now.AddDays(10), DateTime.Now)
+    );
 
-        Assert.Equal("O nome do medicamento não pode ser vazio.", exception.Message);
-    }
+    // Assert (Atenção ao ex.Message com 'M' maiúsculo)
+    Assert.Equal("O nome do medicamento não pode estar vazio.", ex.Message);
+}
 
-    // Teste 3 (Regra de Negócio): Tentar cadastrar remédio que já venceu
-    [Fact]
-    public void AddMedication_ExpiredDate_ShouldThrowException()
-    {
-        var manager = new MedicationManager();
-        var today = new DateTime(2026, 3, 21);
-        var pastDate = new DateTime(2025, 1, 1); // Uma data no passado
+[Fact]
+public void AddMedication_ExpiredDate_ShouldThrowException()
+{
+    // Arrange
+    var manager = new MedicationManager();
 
-        // Ação e Verificação
-        var exception = Assert.Throws<ArgumentException>(() =>
-            manager.AddMedication("Aspirina", "100mg", pastDate, today));
+    // Act
+    var ex = Assert.Throws<ArgumentException>(() => 
+        manager.AddMedication("Aspirina", "500mg", DateTime.Now.AddDays(-5), DateTime.Now)
+    );
 
-        Assert.Equal("Não é permitido cadastrar medicamentos já vencidos.", exception.Message);
-    }
+    // Assert
+    Assert.Equal("A data de validade não pode ser anterior à data atual.", ex.Message);
+}
 }
