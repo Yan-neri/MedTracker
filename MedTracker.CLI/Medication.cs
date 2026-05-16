@@ -8,7 +8,7 @@ public class Medication
     public DateTime ExpiryDate { get; private set; }
     public string EnderecoFarmacia { get; set; }
 
-    // Atualizamos o construtor para receber o endereço também
+
     public Medication(string name, string dosage, DateTime expiryDate, string enderecoFarmacia = "Não informado")
     {
         Id = Guid.NewGuid();

@@ -1,6 +1,6 @@
 ﻿using MedTracker.CLI;
 
-// 1. Instanciamos o serviço de CEP aqui no topo
+
 var manager = new MedicationManager();
 var viaCepService = new ViaCepService();
 bool running = true;
@@ -33,7 +33,7 @@ while (running)
             Console.Write("Data de Validade (DD/MM/AAAA): ");
             string dataInput = Console.ReadLine() ?? "";
 
-            // --- NOVA PARTE DO CEP COMEÇA AQUI ---
+
             Console.Write("CEP da farmácia (apenas números) ou Enter para pular: ");
             string cep = Console.ReadLine() ?? "";
             string endereco = "Não informado";
@@ -41,17 +41,17 @@ while (running)
             if (!string.IsNullOrWhiteSpace(cep))
             {
                 Console.WriteLine("🔍 Consultando endereço...");
-                // Usamos 'await' para esperar a resposta da API
+
                 endereco = await viaCepService.BuscarEnderecoPorCep(cep);
                 Console.WriteLine($"📍 Endereço: {endereco}");
             }
-            // --- NOVA PARTE DO CEP TERMINA AQUI ---
+
 
             if (DateTime.TryParse(dataInput, out DateTime expiryDate))
             {
                 try
                 {
-                    // Agora passamos o 'endereco' para o método de adicionar
+
                     manager.AddMedication(name, dosage, expiryDate, DateTime.Now, endereco);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("✅ Medicamento cadastrado com sucesso!");
@@ -79,7 +79,7 @@ while (running)
 
             foreach (var med in meds)
             {
-                // Adicionamos a exibição do endereço na listagem
+
                 Console.WriteLine($"- {med.Name} ({med.Dosage})");
                 Console.WriteLine($"  Validade: {med.ExpiryDate:dd/MM/yyyy} | Farmácia: {med.EnderecoFarmacia}");
             }
