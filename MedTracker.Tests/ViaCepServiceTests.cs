@@ -1,5 +1,5 @@
 using Xunit;
-using MedTracker.CLI; // Conecta com o seu projeto principal
+using MedTracker.CLI; 
 using System.Threading.Tasks;
 
 namespace MedTracker.Tests;

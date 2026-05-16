@@ -5,7 +5,7 @@ namespace MedTracker.Tests;
 
 public class MedicationManagerTests
 {
-    // Teste 1 (Caminho Feliz): Cadastrar um remédio válido
+    
     [Fact]
     public void AddMedication_ValidData_ShouldAddToList()
     {
