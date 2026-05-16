@@ -5,7 +5,7 @@ namespace MedTracker.Tests;
 
 public class MedicationManagerTests
 {
-    
+
     [Fact]
     public void AddMedication_ValidData_ShouldAddToList()
     {

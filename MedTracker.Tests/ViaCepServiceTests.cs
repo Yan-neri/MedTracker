@@ -1,5 +1,5 @@
 using Xunit;
-using MedTracker.CLI; 
+using MedTracker.CLI;
 using System.Threading.Tasks;
 
 namespace MedTracker.Tests;

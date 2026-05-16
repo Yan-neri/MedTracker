@@ -11,7 +11,7 @@ public class ViaCepService
     {
         try
         {
-            // Limpa o CEP caso o usuário digite com traço
+
             cep = cep.Replace("-", "").Trim();
 
             if (cep.Length != 8) return "CEP inválido.";
