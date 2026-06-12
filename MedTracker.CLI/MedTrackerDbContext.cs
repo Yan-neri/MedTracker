@@ -15,7 +15,7 @@ public class MedTrackerDbContext : DbContext
     }
 
     // Mapeia a sua entidade Medication para a tabela no banco
-    public DbSet<Medication> Medications { get; set; }
+    public DbSet<Medication> Medications { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -34,7 +34,7 @@ public class MedTrackerDbContextFactory : IDesignTimeDbContextFactory<MedTracker
         // Volta a carregar a partir do ficheiro .env seguro
         Env.Load();
         string connectionString = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION_STRING") ?? "";
-        
+
         if (string.IsNullOrEmpty(connectionString))
             throw new Exception("A string de conexão não foi encontrada no ficheiro .env.");
 

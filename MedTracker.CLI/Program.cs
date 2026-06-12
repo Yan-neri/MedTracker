@@ -1,24 +1,24 @@
 ﻿using MedTracker.CLI;
-using DotNetEnv; // Adicionado para ler o ficheiro .env
+using DotNetEnv;
 
-// 1. Carrega as variáveis de ambiente do ficheiro .env para a memória
+
 Env.Load();
 
-// 2. Tenta obter a Connection String com segurança
+
 string connectionString = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION_STRING") ?? "";
 
-// 3. Valida se a chave existe antes de iniciar a aplicação
+
 if (string.IsNullOrWhiteSpace(connectionString))
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("❌ Erro fatal: A string de conexão do banco de dados (Supabase) não foi encontrada.");
     Console.WriteLine("Certifica-te de que tens um ficheiro .env na raiz do projeto configurado com SUPABASE_CONNECTION_STRING.");
     Console.ResetColor();
-    return; // Impede que a aplicação continue e quebre mais à frente
+    return;
 }
 
-// 4. Instâncias iniciais
-var manager = new MedicationManager(); 
+
+var manager = new MedicationManager();
 var viaCepService = new ViaCepService();
 bool running = true;
 
