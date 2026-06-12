@@ -1,4 +1,21 @@
 ﻿using MedTracker.CLI;
+using DotNetEnv;
+
+
+Env.Load();
+
+
+string connectionString = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION_STRING") ?? "";
+
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("❌ Erro fatal: A string de conexão do banco de dados (Supabase) não foi encontrada.");
+    Console.WriteLine("Certifica-te de que tens um ficheiro .env na raiz do projeto configurado com SUPABASE_CONNECTION_STRING.");
+    Console.ResetColor();
+    return;
+}
 
 
 var manager = new MedicationManager();
@@ -51,7 +68,7 @@ while (running)
             {
                 try
                 {
-
+                    // O MedicationManager futuramente precisará do contexto do banco aqui
                     manager.AddMedication(name, dosage, expiryDate, DateTime.Now, endereco);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("✅ Medicamento cadastrado com sucesso!");
@@ -79,7 +96,6 @@ while (running)
 
             foreach (var med in meds)
             {
-
                 Console.WriteLine($"- {med.Name} ({med.Dosage})");
                 Console.WriteLine($"  Validade: {med.ExpiryDate:dd/MM/yyyy} | Farmácia: {med.EnderecoFarmacia}");
             }
